@@ -22,6 +22,8 @@
 * **구현 방식:** `while True:` 무한 루프를 사용하여 올바른 값이 들어올 때까지 입력을 받습니다. 
 * **정확도 포인트:** 사용자가 "2023-13-45"처럼 존재하지 않는 날짜를 입력하거나 형식을 틀릴 경우를 대비해, `datetime.strptime(date_input, "%Y-%m-%d")`와 `try-except ValueError` 구문을 사용했습니다. 이를 통해 프로그램이 강제 종료(Crash)되는 것을 막고 견고한(Robust) 프로그램을 완성했습니다.
 
+<img width="842" height="475" alt="image" src="https://github.com/user-attachments/assets/d6cbc18b-4ef1-437c-8f53-52ac6f0dfab2" />
+
 ### ✅ 조건 2 & 6: 다중 포맷 출력 (JSON, Markdown, Terminal)
 * **구현 방식:** 
   - **JSON:** `json.dump(..., ensure_ascii=False, indent=4)`를 사용하여 한글이 깨지지 않고 사람이 읽기 편한 형태(Pretty Print)로 원본 데이터를 저장했습니다.
@@ -35,10 +37,14 @@
 * **구현 방식:** `get_travel_data()` 함수 내에 파일 존재 여부를 묻는 조건문을 추가했습니다.
 * **정확도 포인트:** 동일한 날짜를 재검색할 때마다 매번 API를 호출하면 **네트워크 지연(Latency)과 API 호출 제한(Rate Limit) 문제**가 발생할 수 있습니다. 이를 방지하기 위해 로컬에 `travel_data_YYYY-MM-DD.json` 파일이 있으면 `json.load()`로 즉시 읽어오도록 설계했습니다. 이는 실제 실무에서도 서버 부하를 줄이기 위해 매우 자주 쓰이는 **캐싱(Caching) 기법**입니다.
 
+<img width="781" height="749" alt="image" src="https://github.com/user-attachments/assets/f46371b4-ba7f-40ef-bf08-50dd7fec509a" />
+
 ---
 
 ## 4. 🌟 핵심 리팩토링 성과: 단일 API 최적화 및 자체 알고리즘 구현
 가장 높게 평가할 수 있는 부분은 **프로그램의 복잡도를 낮추기 위한 리팩토링(Refactoring)** 과정입니다.
+
+<img width="1793" height="1186" alt="image" src="https://github.com/user-attachments/assets/b65bfd17-2c66-473d-89fd-84137b401a1e" />
 
 1. **API 의존성 축소:** 
    초기에는 날씨 API와 관광 API를 따로 쓰려 했으나, 네트워크 통신 지점이 많아질수록 에러 발생 확률이 높아집니다. 이를 해결하기 위해 **'한국관광공사 TourAPI' 단일 호출 구조**로 변경하여 시스템 안정성을 크게 높였습니다.
